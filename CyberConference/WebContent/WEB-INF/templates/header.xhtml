@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<h1>Cyber conferences</h1>
+	
+				<h:form rendered="#{korisnikBean.loggedIn}">
+					<h:commandLink value="Logout" action="#{auth.logout}" />
+				</h:form>
+				<h:link value="Logindin" outcome="login"
+					 rendered="#{!korisnikBean.loggedIn}"/>
+					 <h:link value="regdin" outcome="login"
+					 rendered="#{!korisnikBean.loggedIn}"/>
+</ui:composition>
+</html>

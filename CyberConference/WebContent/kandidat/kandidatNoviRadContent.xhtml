@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition>
+	<h:form>
+		<h:commandLink action="#{korisnikBean.getKandidatPocetna()}">Povratak na pocetnu stranicu</h:commandLink>
+	</h:form>
+	<h:form id="form" enctype="multipart/form-data">
+	Nalov rada: <h:inputText value="#{naucniRadBean.noviNaucniRad.naziv}" />
+	Abstrakt: <h:inputTextarea
+			value="#{naucniRadBean.noviNaucniRad.abstrakt}" />
+	Kljucne rijeci: <h:inputText
+			value="#{naucniRadBean.noviNaucniRad.kljucne_rijeci }" />
+	Konferencija: <h:selectOneMenu
+			value="#{naucniRadBean.noviNaucniRad.konferencija_id}">
+			<f:selectItems value="#{konferencijaBean.aktivneKonferencije}"
+				var="konferencija" itemLabel="#{konferencija.naziv}"
+				itemValue="#{konferencija.id}" />
+		</h:selectOneMenu> 
+	Autori: <h:selectManyListbox value="#{naucniRadBean.noviAutori}">
+			<f:selectItems value="#{konferencijaBean.sviKandidati}" var="autor"
+				itemLabel="#{autor.imePrezimeToString()}" itemValue="#{autor.id }" />
+		</h:selectManyListbox>
+			<h:inputFile id="file" value="#{naucniRadBean.file}" />
+			<h:commandButton value="Upload" action="#{naucniRadBean.upload}" />
+		<h:commandButton value="Unos novog rada"
+			action="#{naucniRadBean.unosNovogRada()}"/>
+			
+			
+	</h:form>
+</ui:composition>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition>
+	<h:form>
+		<h:commandLink
+			action="#{organizatorBean.navigationOrganizatorPocetna()}">Povratak na pocetnu stranicu</h:commandLink>
+	</h:form>
+	<h:form id="form" enctype="multipart/form-data">
+	Naziv konferencije: <h:inputText
+			value="#{organizatorBean.novaKonferencija.naziv}" />
+	Mjesto odrzavanja: <h:inputText
+			value="#{organizatorBean.novaKonferencija.mjesto}" />
+	Recenzenti: <h:selectManyListbox
+			value="#{organizatorBean.noviRecezenti}">
+			<f:selectItems value="#{organizatorBean.sviRecenzenti}" var="organizator"
+				itemLabel="#{organizator.imePrezimeToString()}" itemValue="#{organizator.id }" />
+		</h:selectManyListbox>
+	Pocetak konferencije: <h:inputText p:type="date" id="datumpocetak"
+				value="#{organizatorBean.tempPocetak}" required="true" requiredMessage="Izaberite datum">
+				<f:convertDateTime pattern="yyyy-MM-dd" type="date" dateType="short" />
+				</h:inputText>
+				<h:message for="datumpocetak" style="color:red" />
+	Rok za prijavu: <h:inputText p:type="date" id="datumrok"
+				value="#{organizatorBean.tempRok}" required="true" requiredMessage="Izaberite datum">
+				<f:convertDateTime pattern="yyyy-MM-dd" type="date" dateType="short" />
+				</h:inputText>
+				<h:message for="datumrok" style="color:red" />
+	Kraj konferencije: <h:inputText p:type="date" id="datumkraj"
+				value="#{organizatorBean.tempKraj}" required="true" requiredMessage="Izaberite datum">
+				<f:convertDateTime pattern="yyyy-MM-dd" type="date" dateType="short" />
+				</h:inputText>
+				<h:message for="datumkraj" style="color:red" />
+		<h:commandButton value="Unos nove konferencije"
+			action="#{organizatorBean.unosNoveKonferencije()}" />
+
+
+	</h:form>
+</ui:composition>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition>
+	<h:form>
+		<h:commandLink action="#{korisnikBean.getKandidatPocetna()}">Povratak na pocetnu stranicu</h:commandLink>
+	</h:form>
+	<h:form>
+		<h:panelGroup layout="block"
+			rendered="#{not empty korisnikBean.sviKorisnikoviRadovi}">
+			<h:dataTable value="#{korisnikBean.sviKorisnikoviRadovi}"
+				var="radovi">
+				<h:column>
+					<f:facet name="header"> ID</f:facet>
+					<h:commandLink action="#{naucniRadBean.izmjenaRada(radovi.id)}">#{radovi.id}
+					<f:param name="radId" value="#{radovi.id}"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header"> Naslov</f:facet>
+					#{radovi.naziv}
+				</h:column>
+				<h:column>
+					<f:facet name="header"> Abstrakt</f:facet>
+					#{radovi.abstrakt}
+				</h:column>
+				<h:column>
+					<f:facet name="header"> Konferencija</f:facet>
+					#{radovi.konferencija}
+				</h:column>
+			</h:dataTable>
+
+		</h:panelGroup>
+		<h:panelGroup layout="block"
+			rendered="#{empty korisnikBean.sviKorisnikoviRadovi}">
+
+			<h3>Nema rezultata pretrage</h3>
+		</h:panelGroup>
+	</h:form>
+</ui:composition>
+</html>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition>
+	<h:form>
+		<h:commandLink action="#{korisnikBean.getKandidatNoviRad()}">Prijava novog rada</h:commandLink>
+		<h:commandLink action="#{korisnikBean.korisnickiRadovi}">Korisnicki radovi</h:commandLink>
+		<h:commandLink action="#{korisnikBean.kontaktiInit}">Kontakti</h:commandLink>
+		<h:outputText value="#{korisnikBean.neprocitanePoruke()}"/>
+		<h:commandLink action="#{korisnikBean.pregledPoruka}" value="Pregled poruka"/>
+	</h:form>
+	<div style="clear: both;"></div>
+	<h:form>
+		<h:commandLink value="Logout" action="#{korisnikBean.logout()}" />
+	</h:form>
+	<h:panelGroup layout="block">
+		<h:panelGroup layout="block"
+			rendered="#{not empty indexBean.rssPoruke}"
+			styleClass="index-mainbox">
+			<div class="index-mainhead">
+				<h2 class="index-maintitle">Aktivne novosti:</h2>
+			</div>
+			<div class="index-mainbody">
+				<ui:repeat value="#{indexBean.rssPoruke}" var="poruka">
+					<div class="">
+						<a href="#{poruka.getLink()}"> <h:outputText
+								value="#{poruka.getTitle()}" />
+						</a>
+					</div>
+
+					<div class="index-maindesc">
+						<h:outputText value="#{poruka.getDescription()}" />
+					</div>
+				</ui:repeat>
+			</div>
+		</h:panelGroup>
+
+		<h:panelGroup layout="block"
+			rendered="#{not empty indexBean.aktivneKonferencije}"
+			styleClass="index-mainbox">
+			<div class="index-mainhead">
+				<h2 class="index-maintitle">Aktivne konferencije:</h2>
+			</div>
+			<div class="index-mainbody">
+				<ui:repeat value="#{indexBean.aktivneKonferencije}"
+					var="konferencija">
+					<div class="">
+						<a href="#{konferencija.id}"> <h:outputText
+								value="#{konferencija.naziv}" />
+						</a>
+						<h:outputText value="#{konferencija.mjesto}" />
+						<h:outputText value="#{konferencija.rokZaPrijavu}" />
+						<h:outputText value="#{konferencija.pocetakKonferencije}" />
+					</div>
+
+					<div class="index-maindesc"></div>
+				</ui:repeat>
+			</div>
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" rendered="#{empty indexBean.rssPoruke}">
+			<h3>Nema novih poruka</h3>
+		</h:panelGroup>
+		
+		Sa servisa: <h:outputText
+			value="#{indexBean.aktuelneKonferencijeService }" />
+
+	</h:panelGroup>
+
+
+	<h:form id="search">
+		<h:outputText value="Pretraga radova" />
+		<h:inputText value="#{indexBean.unosPretrage}" />
+		<h:selectOneMenu value="#{indexBean.tipPretrage}">
+			<f:selectItem itemValue="autor" itemLabel="Pretraga po autorima" />
+			<f:selectItem itemLabel="Pretraga po kljucnim rijecima"
+				itemValue="rijec" />
+		</h:selectOneMenu>
+		<h:commandButton value="pretraga" action="#{indexBean.pretraga()}">
+			<f:ajax execute="search" render="output"></f:ajax>
+		</h:commandButton>
+		<h:panelGroup id="output">
+			<h:panelGroup layout="block"
+				rendered="#{not empty indexBean.rezultatPretrage}">
+				<h:dataTable value="#{indexBean.rezultatPretrage}" var="radovi">
+					<h:column>
+						<f:facet name="header"> ID</f:facet>
+					#{radovi.id}
+				</h:column>
+					<h:column>
+						<f:facet name="header"> Ime</f:facet>
+					#{radovi.ime}
+				</h:column>
+					<h:column>
+						<f:facet name="header"> Prezime</f:facet>
+					#{radovi.prezime}
+				</h:column>
+					<h:column>
+						<f:facet name="header"> Naslov</f:facet>
+					#{radovi.naziv}
+				</h:column>
+					<h:column>
+						<f:facet name="header"> Abstrakt</f:facet>
+					#{radovi.abstrakt}
+				</h:column>
+					<h:column>
+						<f:facet name="header"> Download link</f:facet>
+						<h:commandLink value="Download" action="#{naucniRadBean.download}"/>
+					</h:column>
+				</h:dataTable>
+
+			</h:panelGroup>
+			<h:panelGroup layout="block" rendered="#{!indexBean.imaRezulat}">
+
+				<h3>Nema rezultata pretrage</h3>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:form>
+
+	<h:form id="pretraga">
+	Ime: <h:inputText id="ime" value="#{indexBean.pretragaAutoraIme}"
+			required="true" requiredMessage="Unesite parametre pretrage" />
+		<h:message for="ime" style="color:red" />
+	Prezime: <h:inputText id="prezime"
+			value="#{indexBean.pretragaAutoraPrezime}" required="true"
+			requiredMessage="Unesite prezime" />
+		<h:message for="prezime" style="color:red" />
+		<h:commandButton value="Pretraga" action="#{indexBean.pretragaAutora}">
+			<f:ajax execute="pretraga" render="autoriKontakti"></f:ajax>
+		</h:commandButton>
+		<h:panelGroup id="autoriKontakti">
+			<h:panelGroup layout="block"
+				rendered="#{not empty indexBean.rezultatPretrageAutora}">
+				<h:dataTable value="#{indexBean.rezultatPretrageAutora}" var="autori">
+					<h:column>
+						<f:facet name="header"> ID</f:facet>
+					#{autori.id}
+				</h:column>
+					<h:column>
+						<f:facet name="header"> Ime</f:facet>
+					#{autori.ime}
+				</h:column>
+					<h:column>
+						<f:facet name="header"> Prezime</f:facet>
+					#{autori.prezime}
+				</h:column>
+					<h:column>
+						<f:facet name="header"> Dodaj u kontakte</f:facet>
+					<h:commandLink action="#{korisnikBean.dodajUKontakte(autori.id)}" value="Dodavanje">
+					<f:param name="autorId" value="#{autor.id}"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+						<f:facet name="header"></f:facet>
+					<h:outputText value="#{korisnikBean.dodavanjeKontaktaMsg}"/>
+				</h:column>
+					
+				</h:dataTable>
+
+			</h:panelGroup>
+			<h:panelGroup layout="block" rendered="#{!indexBean.imaRezulat}">
+
+				<h3>Nema rezultata pretrage</h3>
+			</h:panelGroup>
+			<h:panelGroup layout="block" rendered="#{empty indexBean.rezultatPretrageAutora}">
+
+				<h3>Nema rezultata pretrage</h3>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:form>
+</ui:composition>
+</html>

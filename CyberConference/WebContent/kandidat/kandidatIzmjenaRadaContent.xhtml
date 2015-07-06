@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition>
+	<h:form>
+		<h:commandLink action="#{korisnikBean.getKandidatPocetna()}">Povratak na pocetnu stranicu</h:commandLink>
+	</h:form>
+	<h:form>
+	Nalov rada: <h:inputText value="#{naucniRadBean.izmjenjenRad.naziv}" />
+	Abstrakt: <h:inputTextarea
+			value="#{naucniRadBean.izmjenjenRad.abstrakt}" />
+	Kljucne rijeci: <h:inputText
+			value="#{naucniRadBean.izmjenjenRad.kljucne_rijeci }" />
+	Autori: <h:selectManyListbox value="#{naucniRadBean.izmjenaAutora}">
+			<f:selectItems value="#{konferencijaBean.sviKandidati}" var="autor"
+				itemLabel="#{autor.imePrezimeToString()}" itemValue="#{autor.id }" />
+		</h:selectManyListbox>
+	Upload rada: 
+		<h:commandButton value="Izmjena rada" action="#{naucniRadBean.unosIzmjeneRada}"/>
+	</h:form>
+</ui:composition>
+</html>

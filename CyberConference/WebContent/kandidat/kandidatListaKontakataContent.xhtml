@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition>
+<h:form>
+	<!-- <h:panelGroup id="kontakti"
+		rendered="not empty korisnikBean.listaKontakata"> -->
+		<h:dataTable value="#{korisnikBean.listaKontakata}" var="kontakt" id="kontakti">
+		<h:column>
+				<f:facet name="id">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{kontakt.id}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Ime" />
+				</f:facet>
+				<h:outputText value="#{kontakt.ime}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Prezime" />
+				</f:facet>
+				<h:outputText value="#{kontakt.prezime}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Napisi poruku" />
+				</f:facet>
+				<h:commandLink action="#{korisnikBean.napisiPoruku(kontakt.id)}" value="Napisi poruku">
+				</h:commandLink>
+			</h:column>
+			<!-- <h:column>
+				<f:facet name="header">
+					<h:outputText value="Nova poruka" />
+				</f:facet>
+				<h:commandLink value="Posaljite poruku" action="#{korisnikBean.slanjeNovePoruke(kontakt.id)}">
+				<f:param name="autorId" value="#{kontakt.id}"/>
+				</h:commandLink>
+			</h:column> -->
+		</h:dataTable>
+	<!-- </h:panelGroup> -->
+	<h:panelGroup rendered="empty korisnikBean.listaKontakata">
+	Nemate kontakata
+	</h:panelGroup>
+	</h:form>
+</ui:composition>
+</html>

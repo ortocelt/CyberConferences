@@ -1,0 +1,29 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from UploadWSService WSDL service -->
+
+  <service name="UploadWS" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://OnlineStorageUploadWS.etfbl.net"/>
+      <parameter name="wsdlServiceElement" value="UploadWSService"/>
+      <parameter name="schemaQualified" value="http://OnlineStorageUploadWS.etfbl.net"/>
+      <parameter name="wsdlServicePort" value="UploadWS"/>
+      <parameter name="className" value="net.etfbl.OnlineStorageUploadWS.UploadWSSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="UploadWS"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="upload" qname="operNS:upload" xmlns:operNS="http://OnlineStorageUploadWS.etfbl.net" returnQName="retNS:uploadReturn" xmlns:retNS="http://OnlineStorageUploadWS.etfbl.net" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:uploadedFile" xmlns:pns="http://OnlineStorageUploadWS.etfbl.net" type="tns:base64Binary" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="upload"/>
+
+  </service>
+</deployment>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition>
+	<h:form>
+		<h:panelGroup layout="block">
+	Ime: <h:inputText id="ime" value="#{korisnikBean.noviKorisnik.ime}"
+				required="true" requiredMessage="Morate unijeti ime" />
+			<h:message for="ime" style="color:red" />
+	Prezime: <h:inputText id="prezime"
+				value="#{korisnikBean.noviKorisnik.prezime}" required="true"
+				requiredMessage="Morate unijeti prezime" />
+			<h:message for="prezime" style="color:red" />
+	Username: <h:inputText id="username"
+				value="#{korisnikBean.noviKorisnik.username}" required="true"
+				requiredMessage="Morate unijeti username" />
+			<h:message for="username" style="color:red" />
+		
+	Password: <h:inputSecret id="password"
+				value="#{korisnikBean.noviKorisnik.password}" required="true"
+				requiredMessage="Morate unijeti password" validatorMessage="Mala, velika slova, cifre, minimum 6 karaktera">
+				<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})" />
+				</h:inputSecret>
+			<h:message for="password" style="color:red" />
+	E-mail: <h:inputText id="email"
+				value="#{korisnikBean.noviKorisnik.email}" required="true"
+				requiredMessage="Morate unijeti email" validatorMessage="Neodgovarajuci email format">
+				<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</h:inputText>
+			<h:message for="email" style="color:red" />
+	  Korisnicka grupa: <h:selectOneMenu value="#{korisnikBean.noviKorisnik.privilegija_id}">
+				<f:selectItem itemLabel="Ucesnik" itemValue="3"/>
+				<f:selectItem itemLabel="Recezent" itemValue="2"/>
+			</h:selectOneMenu>
+	Biografija: <h:inputText id="biografija"
+				value="#{korisnikBean.noviKorisnik.biografija}" required="true"
+				requiredMessage="Morate popuniti biografiju" />
+			<h:message for="biografija" style="color:red" />
+	Datum rodjenja: <h:inputText p:type="date" id="datum"
+				value="#{korisnikBean.tempDate}" required="true" requiredMessage="Izaberite datum">
+				<f:convertDateTime pattern="yyyy-MM-dd" type="date" dateType="short" />
+				</h:inputText>
+				<h:message for="datum" style="color:red" />
+			<h:commandButton action="#{korisnikBean.registracija()}" />
+			<h:outputText style="color:red;font-size:9px;" value="#{korisnikBean.porukaRegister}"></h:outputText>
+		</h:panelGroup>
+	</h:form>
+</ui:composition>
+</html>

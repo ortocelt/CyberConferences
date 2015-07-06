@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition>
+	<h:form>
+	<!-- <h:panelGroup id="kontakti"
+		rendered="not empty korisnikBean.listaKontakata"> -->
+		<h:dataTable value="#{korisnikBean.korisnikovePoruke}" var="poruke" id="kontakti">
+		<h:column>
+				<f:facet name="id">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{poruke.id}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Sadrzaj" />
+				</f:facet>
+				<h:outputText value="#{poruke.tekst}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Datum" />
+				</f:facet>
+				<h:outputText value="#{poruke.datum}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Procitana" />
+				</f:facet>
+				<h:outputText value="#{poruke.procitana}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Procitaj poruku"/>
+				</f:facet>
+				<h:commandLink action="#{korisnikBean.procitajPoruku(poruke.id, poruke.salje)}" value="Procitaj poruku">
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	<!-- </h:panelGroup> -->
+	<!-- <h:panelGroup rendered="empty korisnikBean.listaKontakata">
+	Nemate kontakata
+	</h:panelGroup> -->
+	</h:form>
+</ui:composition>
+</html>

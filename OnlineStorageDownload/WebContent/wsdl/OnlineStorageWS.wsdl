@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://OnlineStorageWS.etfbl.net" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://OnlineStorageWS.etfbl.net" xmlns:intf="http://OnlineStorageWS.etfbl.net" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://OnlineStorageWS.etfbl.net" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="downloadFile">
+    <complexType>
+     <sequence>
+      <element name="fileName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="downloadFileResponse">
+    <complexType>
+     <sequence>
+      <element name="downloadFileReturn" type="xsd:base64Binary"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="downloadFileResponse">
+
+      <wsdl:part element="impl:downloadFileResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="downloadFileRequest">
+
+      <wsdl:part element="impl:downloadFile" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="OnlineStorageWS">
+
+      <wsdl:operation name="downloadFile">
+
+         <wsdl:input message="impl:downloadFileRequest" name="downloadFileRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:downloadFileResponse" name="downloadFileResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="OnlineStorageWSSoapBinding" type="impl:OnlineStorageWS">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="downloadFile">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="downloadFileRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="downloadFileResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="OnlineStorageWSService">
+
+      <wsdl:port binding="impl:OnlineStorageWSSoapBinding" name="OnlineStorageWS">
+
+         <wsdlsoap:address location="http://localhost:8085/OnlineStorageDownload/services/OnlineStorageWS"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
